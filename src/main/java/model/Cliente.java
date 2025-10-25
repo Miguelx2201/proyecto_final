@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cliente implements Puntuable {
     private String nombre;
@@ -9,7 +10,7 @@ public class Cliente implements Puntuable {
     private String correo;
     private int edad;
     private int puntosTotales;
-    private ArrayList<Monedero> listaMonederos;
+    private List<Monedero> listaMonederos;
     private RangoCliente rango;
 
     public Cliente(String nombre, String cedula, String direccion, String correo,int edad) {
@@ -82,7 +83,7 @@ public class Cliente implements Puntuable {
         this.puntosTotales = puntosTotales;
     }
 
-    public ArrayList<Monedero> getListaMonederos() {
+    public List<Monedero> getListaMonederos() {
         return listaMonederos;
     }
 

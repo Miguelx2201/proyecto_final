@@ -2,13 +2,14 @@ package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Banco {
     private String nombre;
     private String nit;
-    private ArrayList<Cliente> listaClientes;
-    private ArrayList<Monedero> listaMonederos;
-    private ArrayList<TransaccionProgramada> listaTransaccionesProgramadas;
+    private List<Cliente> listaClientes;
+    private List<Monedero> listaMonederos;
+    private List<TransaccionProgramada> listaTransaccionesProgramadas;
 
     public Banco(String nombre, String nit) {
         this.nombre = nombre;
@@ -34,7 +35,7 @@ public class Banco {
         this.nit = nit;
     }
 
-    public ArrayList<Cliente> getListaClientes() {
+    public List<Cliente> getListaClientes() {
         return listaClientes;
     }
 
@@ -42,7 +43,7 @@ public class Banco {
         this.listaClientes = listaClientes;
     }
 
-    public ArrayList<Monedero> getListaMonederos() {
+    public List<Monedero> getListaMonederos() {
         return listaMonederos;
     }
 
@@ -50,7 +51,7 @@ public class Banco {
         this.listaMonederos = listaMonederos;
     }
 
-    public ArrayList<TransaccionProgramada> getListaTransaccionesProgramadas() {
+    public List<TransaccionProgramada> getListaTransaccionesProgramadas() {
         return listaTransaccionesProgramadas;
     }
 

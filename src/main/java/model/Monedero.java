@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Monedero implements Puntuable {
     private double saldo;
@@ -8,7 +9,7 @@ public class Monedero implements Puntuable {
     private int numTransacciones;
     private String clave;
     private TipoMonedero tipoMonedero;
-    private ArrayList<Transaccion> listaTransacciones;
+    private List<Transaccion> listaTransacciones;
 
     public Monedero(double saldo,String clave, TipoMonedero tipoMonedero) {
         this.saldo = saldo;
@@ -59,7 +60,7 @@ public class Monedero implements Puntuable {
         this.tipoMonedero = tipoMonedero;
     }
 
-    public ArrayList<Transaccion> getListaTransacciones() {
+    public List<Transaccion> getListaTransacciones() {
         return listaTransacciones;
     }
 
