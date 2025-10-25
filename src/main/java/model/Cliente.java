@@ -112,6 +112,5 @@ public class Cliente implements Puntuable {
         return rango;
     }
 
-    public Tr
 
 }

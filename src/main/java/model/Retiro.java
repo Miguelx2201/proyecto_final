@@ -20,4 +20,15 @@ public class Retiro extends Transaccion {
     public int calcularPuntos() {
         return (int)(3*(getMonto()/100));
     }
+
+    @Override
+    public void ejecutar() {
+        if(origen.getSaldo()>=getMonto()){
+            origen.retirar(getMonto());
+            System.out.println("Retiro de $" + getMonto());
+        }else{
+            System.out.println("Saldo insuficiente");
+        }
+
+    }
 }

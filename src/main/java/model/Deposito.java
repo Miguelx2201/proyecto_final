@@ -1,11 +1,19 @@
 package model;
 
 public class Deposito extends Transaccion {
-
-    public Deposito(double monto, Monedero destino) {
+    private Monedero origen;
+    public Deposito(double monto) {
         super(monto, 0.01);
+        this.origen=origen;
     }
 
+    public Monedero getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(Monedero origen) {
+        this.origen = origen;
+    }
 
     @Override
     public int calcularPuntos() {
@@ -14,6 +22,7 @@ public class Deposito extends Transaccion {
 
     @Override
     public void ejecutar() {
-
+        origen.depositar(getMonto());
+        System.out.println("Deposito realizado");
     }
 }

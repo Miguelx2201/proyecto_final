@@ -59,7 +59,7 @@ public class TransaccionProgramada {
 
     public void ejecutarSiCorresponde(LocalDate fechaActual) {
         if (!ejecutada && fechaActual.equals(fechaProgramada)) {
-            transaccion.ejecutar(); // realiza la transacción real
+            transaccion.ejecutar();
             ejecutada = true;
             System.out.println("Transacción programada ejecutada el " + fechaActual);
         }

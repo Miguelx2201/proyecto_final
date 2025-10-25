@@ -74,4 +74,23 @@ public class Monedero implements Puntuable {
         return puntos;
     }
 
+    public void depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
+            System.out.println("Depósito exitoso: $" + monto);
+        } else {
+            System.out.println("Monto no válido para depósito.");
+        }
+    }
+
+    public void retirar(double monto) {
+        if (monto > 0 && saldo >= monto) {
+            saldo -= monto;
+            System.out.println("Retiro exitoso: $" + monto);
+        } else {
+            System.out.println("Fondos insuficientes o monto no válido.");
+        }
+    }
+
+
 }

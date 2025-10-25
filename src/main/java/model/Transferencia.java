@@ -31,4 +31,15 @@ public class Transferencia extends Transaccion{
         return (int)(3*(getMonto()/100));
     }
 
+    @Override
+    public void ejecutar() {
+            if (origen.getSaldo() >= getMonto()) {
+                origen.retirar(getMonto());
+                destino.depositar(getMonto());
+                System.out.println("Transferencia de $" + getMonto());
+            } else {
+                System.out.println("Saldo insuficiente para realizar la transferencia.");
+            }
+
+    }
 }
