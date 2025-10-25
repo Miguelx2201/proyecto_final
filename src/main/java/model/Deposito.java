@@ -11,4 +11,9 @@ public class Deposito extends Transaccion {
     public int calcularPuntos() {
         return (int)(getMonto()/100);
     }
+
+    @Override
+    public void ejecutar() {
+
+    }
 }
