@@ -7,9 +7,11 @@ public abstract class Transaccion implements Puntuable{
     private LocalDate fecha;
     private double monto;
     private double comision;
+    private Monedero origen;
 
-    public Transaccion(double monto, double comision) {
+    public Transaccion(double monto, double comision,Monedero origen) {
         this.codigo = codigo;
+        this.origen = origen;
         this.fecha = LocalDate.now();
         this.monto = monto;
         this.comision = comision;
@@ -45,6 +47,14 @@ public abstract class Transaccion implements Puntuable{
 
     public void setComision(double comision) {
         this.comision = comision;
+    }
+
+    public Monedero getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(Monedero origen) {
+        this.origen = origen;
     }
 
     public abstract void ejecutar();

@@ -1,21 +1,11 @@
 package model;
 
 public class Transferencia extends Transaccion{
-    private Monedero origen;
     private Monedero destino;
 
     public Transferencia(double monto, double comision, Monedero origen, Monedero destino) {
-        super(monto, comision);
-        this.origen = origen;
+        super(monto, comision,origen);
         this.destino = destino;
-    }
-
-    public Monedero getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(Monedero origen) {
-        this.origen = origen;
     }
 
     public Monedero getDestino() {
@@ -33,13 +23,17 @@ public class Transferencia extends Transaccion{
 
     @Override
     public void ejecutar() {
-            if (origen.getSaldo() >= getMonto()) {
-                origen.retirar(getMonto());
+            if (getOrigen().getSaldo() >= getMonto()) {
+                getOrigen().retirar(getMonto());
                 destino.depositar(getMonto());
                 System.out.println("Transferencia de $" + getMonto());
             } else {
                 System.out.println("Saldo insuficiente para realizar la transferencia.");
             }
 
+    }
+
+    private double calcularComision{
+        double base= monto*
     }
 }

@@ -1,20 +1,11 @@
 package model;
 
 public class Retiro extends Transaccion {
-    private Monedero origen;
 
     public Retiro(double monto, double comision, Monedero origen) {
-        super(monto, comision);
-        this.origen = origen;
+        super(monto, comision,origen);
     }
 
-    public Monedero getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(Monedero origen) {
-        this.origen = origen;
-    }
 
     @Override
     public int calcularPuntos() {
@@ -23,8 +14,8 @@ public class Retiro extends Transaccion {
 
     @Override
     public void ejecutar() {
-        if(origen.getSaldo()>=getMonto()){
-            origen.retirar(getMonto());
+        if(getOrigen().getSaldo()>=getMonto()){
+            getOrigen().retirar(getMonto());
             System.out.println("Retiro de $" + getMonto());
         }else{
             System.out.println("Saldo insuficiente");

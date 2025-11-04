@@ -6,15 +6,13 @@ public class TransaccionProgramada {
     private Transaccion transaccion;
     private LocalDate fechaProgramada;
     private boolean ejecutada;
-    private Monedero monederoDestino;
-    private Monedero monederOrigen;
+    private Frecuencia frecuencia;
 
-    public TransaccionProgramada(Transaccion transaccion, LocalDate fechaProgramada) {
+    public TransaccionProgramada(Transaccion transaccion, LocalDate fechaProgramada,Frecuencia frecuencia) {
         this.transaccion = transaccion;
         this.fechaProgramada = fechaProgramada;
+        this.frecuencia=frecuencia;
         this.ejecutada = false;
-        this.monederoDestino = monederoDestino;
-        this.monederOrigen = monederOrigen;
     }
 
     public Transaccion getTransaccion() {
@@ -41,26 +39,28 @@ public class TransaccionProgramada {
         this.ejecutada = ejecutada;
     }
 
-    public Monedero getMonederoDestino() {
-        return monederoDestino;
+    public Frecuencia getFrecuencia() {
+        return frecuencia;
     }
 
-    public void setMonederoDestino(Monedero monederoDestino) {
-        this.monederoDestino = monederoDestino;
-    }
-
-    public Monedero getMonederOrigen() {
-        return monederOrigen;
-    }
-
-    public void setMonederOrigen(Monedero monederOrigen) {
-        this.monederOrigen = monederOrigen;
+    public void setFrecuencia(Frecuencia frecuencia) {
+        this.frecuencia = frecuencia;
     }
 
     public void ejecutarSiCorresponde(LocalDate fechaActual) {
         if (!ejecutada && fechaActual.equals(fechaProgramada)) {
             transaccion.ejecutar();
-            ejecutada = true;
+            switch (frecuencia) {
+                case SEMANAL:
+                    fechaProgramada = fechaProgramada.plusWeeks(1);
+                    break;
+                case MENSUAL:
+                    fechaProgramada = fechaProgramada.plusMonths(1);
+                    break;
+                default:
+                    ejecutada = true; // única ejecución
+                    break;
+            }
             System.out.println("Transacción programada ejecutada el " + fechaActual);
         }
     }

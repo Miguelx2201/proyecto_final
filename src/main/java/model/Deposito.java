@@ -1,18 +1,8 @@
 package model;
 
 public class Deposito extends Transaccion {
-    private Monedero origen;
-    public Deposito(double monto) {
-        super(monto, 0.01);
-        this.origen=origen;
-    }
-
-    public Monedero getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(Monedero origen) {
-        this.origen = origen;
+    public Deposito(double monto, double comision, Monedero origen) {
+        super(monto, comision, origen);
     }
 
     @Override
@@ -22,7 +12,7 @@ public class Deposito extends Transaccion {
 
     @Override
     public void ejecutar() {
-        origen.depositar(getMonto());
+        getOrigen().depositar(getMonto());
         System.out.println("Deposito realizado");
     }
 }

@@ -75,9 +75,20 @@ public class Banco {
     }
 
     public void procesarTransaccionesOrdenadas(LocalDate fechaActual) {
-        ordenarTransaccionesPorFecha(); // ordena antes de ejecutar
+        ordenarTransaccionesPorFecha();
         for (TransaccionProgramada tp : listaTransaccionesProgramadas) {
             tp.ejecutarSiCorresponde(fechaActual);
+        }
+    }
+
+    public void revisarRecordatorios() {
+        LocalDate hoy = LocalDate.now();
+        for (TransaccionProgramada tp : listaTransaccionesProgramadas) {
+            long diasRestantes = java.time.temporal.ChronoUnit.DAYS.between(hoy, tp.getFechaProgramada());
+            if (diasRestantes == 1) {
+                Cliente c = tp.getTransaccion().getOrigen().getPropietario();
+                c.enviarNotificacion("Recordatorio: mañana se ejecutará una transacción programada de $" + tp.getTransaccion().getMonto());
+            }
         }
     }
 
