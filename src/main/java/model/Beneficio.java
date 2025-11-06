@@ -1,7 +1,7 @@
 package model;
 
 public enum Beneficio {
-    DESCUENTO(100,"descuento"),
+    DESCUENTO(100,"Descuento"),
     RETIROSGRATIS(500,"Mes sin cargos"),
     BONOSALDO(1000,"Bono saldo");
 
