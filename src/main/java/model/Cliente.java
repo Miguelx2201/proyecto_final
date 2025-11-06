@@ -26,7 +26,6 @@ public class Cliente implements Puntuable,Notificable {
         this.direccion = direccion;
         this.correo = correo;
         this.edad = edad;
-        this.fechaFinRetirosGratis=fechaFinRetirosGratis;
         this.descuentoTransferencia = false;
         this.retirosGratis = false;
         this.listaMonederos = new ArrayList<>();
@@ -120,7 +119,7 @@ public class Cliente implements Puntuable,Notificable {
         return rango;
     }
 
-
+    //Modificar para que envie recordatorios por gmail y por wpp
     @Override
     public void enviarNotificacion(String mensaje) {
         System.out.println("🔔 Notificación para " + nombre + ": " + mensaje);
