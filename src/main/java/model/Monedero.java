@@ -5,16 +5,18 @@ import java.util.List;
 
 public class Monedero implements Puntuable {
     private double saldo;
+    private Cliente propietario;
     private int puntos;
     private int numTransacciones;
     private String clave;
     private TipoMonedero tipoMonedero;
     private List<Transaccion> listaTransacciones;
 
-    public Monedero(double saldo,String clave, TipoMonedero tipoMonedero) {
+    public Monedero(Cliente propietario,double saldo,String clave, TipoMonedero tipoMonedero) {
         this.saldo = saldo;
         this.clave = clave;
         this.tipoMonedero = tipoMonedero;
+        this.propietario = propietario;
         this.listaTransacciones = new ArrayList<>();
         this.puntos = calcularPuntos();
         this.numTransacciones = listaTransacciones.size();
@@ -64,9 +66,19 @@ public class Monedero implements Puntuable {
         return listaTransacciones;
     }
 
-    public void setListaTransacciones(ArrayList<Transaccion> listaTransacciones) {
+    public void setListaTransacciones(List<Transaccion> listaTransacciones) {
         this.listaTransacciones = listaTransacciones;
     }
+
+    public Cliente getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Cliente propietario) {
+        this.propietario = propietario;
+    }
+
+
 
     public int calcularPuntos(){
         for(Transaccion transaccion : listaTransacciones){
