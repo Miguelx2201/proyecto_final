@@ -120,6 +120,14 @@ public class Cliente implements Puntuable,Notificable {
         return rango;
     }
 
+    public void consultarSaldo(){
+        double saldoTotal=0;
+        for(Monedero m: listaMonederos){
+            saldoTotal+=m.getSaldo();
+        }
+        System.out.println("Su saldo total es de: "+saldoTotal);
+    }
+
 
     @Override
     public void enviarNotificacion(String mensaje) {
