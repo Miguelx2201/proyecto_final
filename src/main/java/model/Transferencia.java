@@ -23,17 +23,28 @@ public class Transferencia extends Transaccion{
 
     @Override
     public void ejecutar() {
+        double total=calcularComision()+getMonto();
             if (getOrigen().getSaldo() >= getMonto()) {
                 getOrigen().retirar(getMonto());
                 destino.depositar(getMonto());
                 System.out.println("Transferencia de $" + getMonto());
+                calcularPuntos();
             } else {
                 System.out.println("Saldo insuficiente para realizar la transferencia.");
             }
 
     }
 
-    private double calcularComision{
-        double base= monto*
+    @Override
+    public void revertir() {
+        double total = getMonto() + calcularComision();
+        if (destino.getSaldo() >= getMonto()) {
+            destino.retirar(getMonto());
+            getOrigen().depositar(total);
+            System.out.println("Se revirtió la transferencia de " + getMonto());
+        } else {
+            System.out.println("No se puede revertir: destino no tiene el saldo suficiente.");
+        }
     }
+
 }

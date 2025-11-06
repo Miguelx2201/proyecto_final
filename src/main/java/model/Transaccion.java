@@ -14,7 +14,7 @@ public abstract class Transaccion implements Puntuable{
         this.origen = origen;
         this.fecha = LocalDate.now();
         this.monto = monto;
-        this.comision = comision;
+        this.comision = 0.01;
     }
 
     public String getCodigo() {
@@ -58,5 +58,10 @@ public abstract class Transaccion implements Puntuable{
     }
 
     public abstract void ejecutar();
+
+    public abstract void revertir();
+    public double calcularComision(){
+        return monto*comision;
+    }
 
 }

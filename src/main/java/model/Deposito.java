@@ -14,5 +14,12 @@ public class Deposito extends Transaccion {
     public void ejecutar() {
         getOrigen().depositar(getMonto());
         System.out.println("Deposito realizado");
+        calcularPuntos();
+    }
+
+    @Override
+    public void revertir() {
+        getOrigen().retirar(getMonto());
+        System.out.println("Deposito revertido");
     }
 }
