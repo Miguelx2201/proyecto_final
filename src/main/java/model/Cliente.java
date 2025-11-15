@@ -161,6 +161,7 @@ public class Cliente implements Puntuable,Notificable {
     @Override
     public void enviarNotificacion(String mensaje) {
         System.out.println("🔔 Notificación para " + nombre + ": " + mensaje);
+        //Whatsapp.enviarWhatsapp(mensaje); //Puesto en comentarios para no gastar los mensajes de twilio
     }
 
     public void canjearBeneficio(Beneficio beneficio, Monedero monedero){
