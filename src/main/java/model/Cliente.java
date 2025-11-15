@@ -26,11 +26,12 @@ public class Cliente implements Puntuable,Notificable {
         this.direccion = direccion;
         this.correo = correo;
         this.edad = edad;
+        this.fechaFinRetirosGratis=null;
         this.descuentoTransferencia = false;
         this.retirosGratis = false;
         this.listaMonederos = new ArrayList<>();
         this.puntosTotales = calcularPuntos();
-        this.rango=actualizarRango();
+        this.rango=RangoCliente.BRONCE;
     }
 
     public RangoCliente getRango() {
@@ -97,16 +98,46 @@ public class Cliente implements Puntuable,Notificable {
         this.listaMonederos = listaMonederos;
     }
 
+    public void setListaMonederos(List<Monedero> listaMonederos) {
+        this.listaMonederos = listaMonederos;
+    }
+
+    public boolean isDescuentoTransferencia() {
+        return descuentoTransferencia;
+    }
+
+    public void setDescuentoTransferencia(boolean descuentoTransferencia) {
+        this.descuentoTransferencia = descuentoTransferencia;
+    }
+
+    public boolean isRetirosGratis() {
+        return retirosGratis;
+    }
+
+    public void setRetirosGratis(boolean retirosGratis) {
+        this.retirosGratis = retirosGratis;
+    }
+
+    public LocalDate getFechaFinRetirosGratis() {
+        return fechaFinRetirosGratis;
+    }
+
+    public void setFechaFinRetirosGratis(LocalDate fechaFinRetirosGratis) {
+        this.fechaFinRetirosGratis = fechaFinRetirosGratis;
+    }
+
     @Override
     public int calcularPuntos(){
-        puntosTotales=0;
+        int total=0;
         for(Monedero m: listaMonederos){
-            puntosTotales+=m.getPuntos();
+            total+=m.getPuntos();
         }
+        this.puntosTotales=total;
+        actualizarRango();
         return puntosTotales;
     }
 
-    public RangoCliente actualizarRango(){
+    public void actualizarRango(){
         if(puntosTotales<=500){
             rango=RangoCliente.BRONCE;
         }else if(puntosTotales>500&&puntosTotales<=1000){
@@ -116,10 +147,17 @@ public class Cliente implements Puntuable,Notificable {
         }else{
             rango=RangoCliente.PLATINO;
         }
-        return rango;
     }
 
-    //Modificar para que envie recordatorios por gmail y por wpp
+    public void consultarSaldo(){
+        double saldoTotal=0;
+        for(Monedero m: listaMonederos){
+            saldoTotal+=m.getSaldo();
+        }
+        System.out.println("Su saldo total es de: "+saldoTotal);
+    }
+
+
     @Override
     public void enviarNotificacion(String mensaje) {
         System.out.println("🔔 Notificación para " + nombre + ": " + mensaje);

@@ -3,8 +3,8 @@ package model;
 public class Transferencia extends Transaccion{
     private Monedero destino;
 
-    public Transferencia(double monto, double comision, Monedero origen, Monedero destino) {
-        super(monto, comision,origen);
+    public Transferencia(double monto, Monedero origen, Monedero destino) {
+        super(monto,origen);
         this.destino = destino;
     }
 
@@ -23,9 +23,12 @@ public class Transferencia extends Transaccion{
 
     @Override
     public void ejecutar() {
-            if (getOrigen().getSaldo() >= getMonto()) {
+        double total=calcularComision()+getMonto();
+            if (getOrigen().getSaldo() >=total) {
                 getOrigen().retirar(getMonto());
                 destino.depositar(getMonto());
+                destino.registrarTransaccion(this);
+                getOrigen().registrarTransaccion(this);
                 System.out.println("Transferencia de $" + getMonto());
             } else {
                 System.out.println("Saldo insuficiente para realizar la transferencia.");
@@ -33,7 +36,18 @@ public class Transferencia extends Transaccion{
 
     }
 
-    private double calcularComision{
-        double base= monto*
+    @Override
+    public void revertir() {
+        double total = getMonto() + calcularComision();
+        if (destino.getSaldo() >= getMonto()) {
+            destino.retirar(getMonto());
+            getOrigen().depositar(total);
+            getOrigen().registrarTransaccion(this);
+            destino.registrarTransaccion(this);
+            System.out.println("Se revirtió la transferencia de " + getMonto());
+        } else {
+            System.out.println("No se puede revertir: destino no tiene el saldo suficiente.");
+        }
     }
+
 }

@@ -1,6 +1,6 @@
 package model;
 
-public enum Frecuencia {
+public enum FrecuenciaTransaccionProg {
     UNICA,
     SEMANAL,
     MENSUAL

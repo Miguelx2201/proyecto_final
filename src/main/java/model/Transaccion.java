@@ -4,17 +4,23 @@ import java.time.LocalDate;
 
 public abstract class Transaccion implements Puntuable{
     private String codigo;
-    private LocalDate fecha;
+    private final LocalDate fecha;
     private double monto;
     private double comision;
     private Monedero origen;
 
-    public Transaccion(double monto, double comision,Monedero origen) {
+    public Transaccion(double monto,Monedero origen) {
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto debe ser mayor a cero.");
+        }
+        if (origen == null) {
+            throw new IllegalArgumentException("El monedero de origen no puede ser nulo.");
+        }
         this.codigo = codigo;
         this.origen = origen;
         this.fecha = LocalDate.now();
         this.monto = monto;
-        this.comision = comision;
+        this.comision = 0.01;
     }
 
     public String getCodigo() {
@@ -29,9 +35,6 @@ public abstract class Transaccion implements Puntuable{
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
 
     public double getMonto() {
         return monto;
@@ -58,5 +61,10 @@ public abstract class Transaccion implements Puntuable{
     }
 
     public abstract void ejecutar();
+
+    public abstract void revertir();
+    public double calcularComision(){
+        return monto*comision;
+    }
 
 }

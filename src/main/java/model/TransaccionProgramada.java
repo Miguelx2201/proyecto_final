@@ -6,12 +6,12 @@ public class TransaccionProgramada {
     private Transaccion transaccion;
     private LocalDate fechaProgramada;
     private boolean ejecutada;
-    private Frecuencia frecuencia;
+    private FrecuenciaTransaccionProg frecuenciaTransaccionProg;
 
-    public TransaccionProgramada(Transaccion transaccion, LocalDate fechaProgramada,Frecuencia frecuencia) {
+    public TransaccionProgramada(Transaccion transaccion, LocalDate fechaProgramada, FrecuenciaTransaccionProg frecuenciaTransaccionProg) {
         this.transaccion = transaccion;
         this.fechaProgramada = fechaProgramada;
-        this.frecuencia=frecuencia;
+        this.frecuenciaTransaccionProg = frecuenciaTransaccionProg;
         this.ejecutada = false;
     }
 
@@ -39,24 +39,25 @@ public class TransaccionProgramada {
         this.ejecutada = ejecutada;
     }
 
-    public Frecuencia getFrecuencia() {
-        return frecuencia;
+    public FrecuenciaTransaccionProg getFrecuencia() {
+        return frecuenciaTransaccionProg;
     }
 
-    public void setFrecuencia(Frecuencia frecuencia) {
-        this.frecuencia = frecuencia;
+    public void setFrecuencia(FrecuenciaTransaccionProg frecuenciaTransaccionProg) {
+        this.frecuenciaTransaccionProg = frecuenciaTransaccionProg;
     }
 
     public void ejecutarSiCorresponde(LocalDate fechaActual) {
         if (!ejecutada && fechaActual.equals(fechaProgramada)) {
             transaccion.ejecutar();
-            switch (frecuencia) {
+            switch (frecuenciaTransaccionProg) {
                 case SEMANAL:
                     fechaProgramada = fechaProgramada.plusWeeks(1);
                     break;
                 case MENSUAL:
                     fechaProgramada = fechaProgramada.plusMonths(1);
                     break;
+                case UNICA:
                 default:
                     ejecutada = true; // única ejecución
                     break;

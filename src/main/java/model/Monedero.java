@@ -8,18 +8,18 @@ public class Monedero implements Puntuable {
     private Cliente propietario;
     private int puntos;
     private int numTransacciones;
-    private String clave;
+    private String codigo;
     private TipoMonedero tipoMonedero;
     private List<Transaccion> listaTransacciones;
 
-    public Monedero(Cliente propietario,double saldo,String clave, TipoMonedero tipoMonedero) {
+    public Monedero(Cliente propietario,double saldo,String codigo, TipoMonedero tipoMonedero) {
         this.saldo = saldo;
-        this.clave = clave;
+        this.codigo = codigo;
         this.tipoMonedero = tipoMonedero;
         this.propietario = propietario;
         this.listaTransacciones = new ArrayList<>();
-        this.puntos = calcularPuntos();
-        this.numTransacciones = listaTransacciones.size();
+        this.puntos = 0;
+        this.numTransacciones =0;
     }
 
     public double getSaldo() {
@@ -46,12 +46,12 @@ public class Monedero implements Puntuable {
         this.numTransacciones = numTransacciones;
     }
 
-    public String getClave() {
-        return clave;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public TipoMonedero getTipoMonedero() {
@@ -81,11 +81,26 @@ public class Monedero implements Puntuable {
 
 
     public int calcularPuntos(){
+        int total=0;
         for(Transaccion transaccion : listaTransacciones){
-            puntos+=transaccion.calcularPuntos();
+            total+=transaccion.calcularPuntos();
         }
-        return puntos;
+        this.puntos=total;
+        return total;
     }
+
+    public void registrarTransaccion(Transaccion transaccion) {
+        listaTransacciones.add(transaccion);
+        numTransacciones = listaTransacciones.size();
+        calcularPuntos();
+    }
+
+    public List<Transaccion> obtenerHistorial() {
+        return listaTransacciones.stream()
+                .sorted((t1, t2) -> t1.getFecha().compareTo(t2.getFecha()))
+                .toList();
+    }
+
 
     public void depositar(double monto) {
         if (monto > 0) {
@@ -103,6 +118,64 @@ public class Monedero implements Puntuable {
         } else {
             System.out.println("Fondos insuficientes o monto no válido.");
         }
+    }
+
+    public double totalGastado() {
+        return listaTransacciones.stream()
+                .filter(t -> t instanceof Retiro || t instanceof Transferencia)
+                .mapToDouble(Transaccion::getMonto)
+                .sum();
+    }
+
+    public double totalRecibido() {
+        return listaTransacciones.stream()
+                .filter(t -> t instanceof Deposito)
+                .mapToDouble(Transaccion::getMonto)
+                .sum();
+    }
+
+    public double balanceGeneral() {
+        return totalRecibido() - totalGastado();
+    }
+
+    public long cantidadDepositos() {
+        return listaTransacciones.stream()
+                .filter(t -> t instanceof Deposito).count();
+    }
+
+    public long cantidadRetiros() {
+        return listaTransacciones.stream()
+                .filter(t -> t instanceof Retiro).count();
+    }
+
+    public long cantidadTransferencias() {
+        return listaTransacciones.stream()
+                .filter(t -> t instanceof Transferencia).count();
+    }
+
+    public String tipoGastoPredominante() {
+        long retiros = cantidadRetiros();
+        long transferencias = cantidadTransferencias();
+        if (retiros == 0 && transferencias == 0)
+            return "No hay gastos registrados";
+        if (retiros > transferencias)
+            return "Retiros en efectivo";
+        if (transferencias > retiros)
+            return "Transferencias realizadas";
+        return "Gasto equilibrado entre retiros y transferencias";
+    }
+
+    public String generarInformePatrones() {
+        return """
+            ANÁLISIS DE PATRONES DE GASTO
+            Total gastado: $""" + totalGastado() +
+                "\nTotal recibido: $" + totalRecibido() +
+                "\nBalance general: $" + balanceGeneral() +
+                "\n\nTransacciones por tipo:" +
+                "\n - Depósitos: " + cantidadDepositos() +
+                "\n - Retiros: " + cantidadRetiros() +
+                "\n - Transferencias: " + cantidadTransferencias() +
+                "\nTipo de gasto predominante: " + tipoGastoPredominante();
     }
 
 
