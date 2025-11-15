@@ -13,6 +13,9 @@ public class Banco {
     private List<TransaccionProgramada> listaTransaccionesProgramadas;
 
     public Banco(String nombre, String nit) {
+        if (nombre.isBlank() || nit.isBlank()) {
+            throw new IllegalArgumentException("El nombre y el NIT no pueden estar vacíos.");
+        }
         this.nombre = nombre;
         this.nit = nit;
         this.listaClientes = new ArrayList<>();
@@ -60,21 +63,94 @@ public class Banco {
         this.listaTransaccionesProgramadas = listaTransaccionesProgramadas;
     }
 
-//    public void ordenarTransaccionesPorFecha() {
-//        int n = listaTransaccionesProgramadas.size();
-//        for (int i = 0; i < n - 1; i++) {
-//            for (int j = 0; j < n - i - 1; j++) {
-//                LocalDate f1 = listaTransaccionesProgramadas.get(j).getFechaProgramada();
-//                LocalDate f2 = listaTransaccionesProgramadas.get(j + 1).getFechaProgramada();
-//                if (f1.isAfter(f2)) {
-//                    TransaccionProgramada temp = listaTransaccionesProgramadas.get(j);
-//                    listaTransaccionesProgramadas.set(j, listaTransaccionesProgramadas.get(j + 1));
-//                    listaTransaccionesProgramadas.set(j + 1, temp);
-//                }
-//            }
-//        }
-//    }
-public void ordenarTransaccionesPorFecha() {
+    public boolean registarCliente(Cliente cliente) {
+        boolean existe = listaClientes.stream().anyMatch(c -> c.getCedula().equals(cliente.getCedula()));
+        if (existe) return false;
+        return listaClientes.add(cliente);
+    }
+
+    public Cliente buscarCliente(String cedula) {
+        return listaClientes.stream().filter(c -> c.getCedula().equals(cedula))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean actualizarCliente(String cedula, String nuevoNombre,
+                                     String nuevaDireccion, String nuevoCorreo) {
+        Cliente cliente = buscarCliente(cedula);
+        if (cliente == null) return false;
+        cliente.setNombre(nuevoNombre);
+        cliente.setDireccion(nuevaDireccion);
+        cliente.setCorreo(nuevoCorreo);
+        return true;
+    }
+
+    public boolean eliminarCliente(String cedula) {
+        return listaClientes.removeIf(c -> c.getCedula().equals(cedula));
+    }
+
+    public boolean registrarMonedero(Monedero monedero) {
+        boolean existe = listaMonederos.stream()
+                .anyMatch(m -> m.getCodigo().equals(monedero.getCodigo()));
+
+        if (existe) return false; // ya existe
+
+        return listaMonederos.add(monedero);
+    }
+
+    // BUSCAR MONEDERO
+    public Monedero buscarMonedero(String codigo) {
+        return listaMonederos
+                .stream()
+                .filter(m -> m.getCodigo().equals(codigo))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean actualizarMonedero(String id, TipoMonedero tipoMonederoNuevo) {
+        Monedero m = buscarMonedero(id);
+        if (m == null) return false;
+        m.setTipoMonedero(tipoMonederoNuevo);
+        return true;
+    }
+
+    public boolean eliminarMonedero(String codigo) {
+        return listaMonederos.removeIf(m -> m.getCodigo().equals(codigo));
+    }
+
+    public boolean registrarTransaccionProgramada(TransaccionProgramada tp) {
+        boolean existe = listaTransaccionesProgramadas.stream()
+                .anyMatch(t ->
+                        t.getFechaProgramada().equals(tp.getFechaProgramada()) &&
+                                t.getTransaccion().getOrigen().equals(tp.getTransaccion().getOrigen()) &&
+                                t.getTransaccion().getMonto() == tp.getTransaccion().getMonto()
+                );
+
+        if (existe) return false; // ya existe
+
+        return listaTransaccionesProgramadas.add(tp);
+    }
+
+    public TransaccionProgramada buscarTransaccionProgramada(LocalDate fecha) {
+        return listaTransaccionesProgramadas.stream()
+                .filter(tp -> tp.getFechaProgramada().equals(fecha))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean actualizarTransaccionProgramada(LocalDate fechaActual, LocalDate nuevaFecha) {
+        TransaccionProgramada tp = buscarTransaccionProgramada(fechaActual);
+        if (tp == null) return false;
+        tp.setFechaProgramada(nuevaFecha);
+        return true;
+    }
+
+    public boolean eliminarTransaccionProgramada(LocalDate fecha) {
+        return listaTransaccionesProgramadas.removeIf(tp -> tp.getFechaProgramada().equals(fecha));
+    }
+
+
+    public void ordenarTransaccionesPorFecha() {
     // Ordena directamente usando una expresión lambda para el Comparator
     Collections.sort(
             listaTransaccionesProgramadas,

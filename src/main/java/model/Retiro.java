@@ -2,8 +2,8 @@ package model;
 
 public class Retiro extends Transaccion {
 
-    public Retiro(double monto, double comision, Monedero origen) {
-        super(monto, comision,origen);
+    public Retiro(double monto, Monedero origen) {
+        super(monto,origen);
     }
 
 
@@ -15,10 +15,10 @@ public class Retiro extends Transaccion {
     @Override
     public void ejecutar() {
         double total=calcularComision()+getMonto();
-        if(getOrigen().getSaldo()>=getMonto()){
+        if(getOrigen().getSaldo()>=total){
             getOrigen().retirar(total);
+            getOrigen().registrarTransaccion(this);
             System.out.println("Retiro de $" + total);
-            calcularPuntos();
         }else{
             System.out.println("Saldo insuficiente");
         }
@@ -29,6 +29,7 @@ public class Retiro extends Transaccion {
     public void revertir() {
         double total = getMonto() + calcularComision();
         getOrigen().depositar(total);
+        getOrigen().registrarTransaccion(this);
         System.out.println("Se revirtió el retiro de " + getMonto());
     }
 }

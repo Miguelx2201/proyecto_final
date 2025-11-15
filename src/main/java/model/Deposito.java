@@ -1,8 +1,8 @@
 package model;
 
 public class Deposito extends Transaccion {
-    public Deposito(double monto, double comision, Monedero origen) {
-        super(monto, comision, origen);
+    public Deposito(double monto, Monedero origen) {
+        super(monto, origen);
     }
 
     @Override
@@ -13,13 +13,14 @@ public class Deposito extends Transaccion {
     @Override
     public void ejecutar() {
         getOrigen().depositar(getMonto());
+        getOrigen().registrarTransaccion(this);
         System.out.println("Deposito realizado");
-        calcularPuntos();
     }
 
     @Override
     public void revertir() {
         getOrigen().retirar(getMonto());
+        getOrigen().registrarTransaccion(this);
         System.out.println("Deposito revertido");
     }
 }
