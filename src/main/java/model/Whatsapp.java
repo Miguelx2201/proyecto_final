@@ -18,8 +18,8 @@ public class Whatsapp {
     public static void enviarWhatsapp(String mensaje) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("whatsapp:+573203785092"),
-                new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
+                new PhoneNumber("whatsapp:+573203785092"),
+                new PhoneNumber("whatsapp:+14155238886"),
                 mensaje
                 )
                         .create();
