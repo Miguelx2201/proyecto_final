@@ -153,7 +153,7 @@ public class Monedero implements Puntuable {
                 .filter(t -> t instanceof Transferencia).count();
     }
 
-    public String tipoGastoPredominante() {
+    public String determinarTipoGastoPredominante() {
         long retiros = cantidadRetiros();
         long transferencias = cantidadTransferencias();
         if (retiros == 0 && transferencias == 0)
@@ -175,7 +175,7 @@ public class Monedero implements Puntuable {
                 "\n - Depósitos: " + cantidadDepositos() +
                 "\n - Retiros: " + cantidadRetiros() +
                 "\n - Transferencias: " + cantidadTransferencias() +
-                "\nTipo de gasto predominante: " + tipoGastoPredominante();
+                "\nTipo de gasto predominante: " + determinarTipoGastoPredominante();
     }
 
 
