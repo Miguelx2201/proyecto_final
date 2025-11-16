@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="367.0" prefWidth="334.0" spacing="10" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TransaccionController">
+   <children>
+       <Label text="Transacciones" />
+       <HBox spacing="10">
+          <children>
+              <TextField fx:id="txtMonto" promptText="Monto" />
+              <Button onAction="#depositar" text="Depositar" />
+              <Button onAction="#retirar" text="Retirar" />
+          </children>
+       </HBox>
+       <ListView fx:id="listaTransacciones" prefHeight="200" />
+       <Button onAction="#volver" text="Volver" />
+       <Label fx:id="lblError" style="-fx-text-fill:red;" />
+   </children>
+</VBox>

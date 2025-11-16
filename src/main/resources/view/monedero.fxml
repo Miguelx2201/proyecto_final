@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="185.0" prefWidth="151.0" spacing="10" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MonederoController">
+   <children>
+       <Label fx:id="lblSaldo" />
+       <Button onAction="#depositar" text="Depositar" />
+       <Button onAction="#retirar" text="Retirar" />
+       <Button onAction="#volver" text="Volver" />
+   </children>
+</VBox>

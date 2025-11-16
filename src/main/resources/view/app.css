@@ -1,0 +1,136 @@
+/* ------------------------------
+   ESTILO GENERAL
+------------------------------- */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #e0f2f1, #ffffff);
+}
+
+/* ------------------------------
+   TITULOS
+------------------------------- */
+.label.titulo {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00796b;
+}
+
+/* ------------------------------
+   LABELS
+------------------------------- */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #424242;
+}
+
+/* ------------------------------
+   BOTONES
+------------------------------- */
+.button {
+    -fx-background-radius: 25px;
+    -fx-background-color: linear-gradient(to right, #26a69a, #00796b);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 8, 0, 0, 4);
+    -fx-font-weight: bold;
+    -fx-transition: all 0.3s ease;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #43a047, #00796b);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to right, #00796b, #004d40);
+}
+
+/* ------------------------------
+   TEXTFIELDS & PASSWORDFIELDS
+------------------------------- */
+.text-field, .password-field {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #b2dfdb;
+    -fx-border-width: 2px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-focus-color: #00796b;
+}
+
+/* ------------------------------
+   LISTVIEWS
+------------------------------- */
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b2dfdb;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+    -fx-cell-hover-color: #e0f2f1;
+}
+
+/* ------------------------------
+   TABLEVIEWS
+------------------------------- */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b2dfdb;
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to right, #26a69a, #00796b);
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #ffffff;
+    -fx-alignment: center-left;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ------------------------------
+   COMBOBOX
+------------------------------- */
+.combo-box {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #b2dfdb;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+}
+
+/* ------------------------------
+   MENSAJES DE ALERTA
+------------------------------- */
+.label.alert {
+    -fx-text-fill: #d32f2f;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* ------------------------------
+   PANELES
+------------------------------- */
+.vbox, .hbox, .grid-pane {
+    -fx-spacing: 12px;
+    -fx-padding: 12px;
+    -fx-background-radius: 15px;
+}
+
+/* ------------------------------
+   EFECTOS ADICIONALES
+------------------------------- */
+.shadow-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5);
+    -fx-padding: 15px;
+}
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" fillWidth="false" prefHeight="301.0" prefWidth="213.0" spacing="15.0" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+       <Label text="Iniciar Sesión" />
+       <TextField fx:id="txtCedula" promptText="Cédula" />
+       <PasswordField fx:id="txtPassword" promptText="Contraseña" />
+       <Button onAction="#handleLogin" text="Ingresar" />
+       <Button onAction="#goToRegistro" text="Registrarse" />
+       <Label fx:id="lblError" style="-fx-text-fill:red;" />
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
