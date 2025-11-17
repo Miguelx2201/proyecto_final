@@ -10,7 +10,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <!-- COMPATIBLE CON TU SDK (JDK 21) -->
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,7 +44,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit 4 (si tienes pruebas viejas) -->
+        <!-- JUnit 4 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -53,7 +52,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Twilio SMS -->
+        <!-- Twilio -->
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
