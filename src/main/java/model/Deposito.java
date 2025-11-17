@@ -11,10 +11,12 @@ public class Deposito extends Transaccion {
     }
 
     @Override
-    public void ejecutar() {
+    public boolean ejecutar() {
         getOrigen().depositar(getMonto());
         getOrigen().registrarTransaccion(this);
         System.out.println("Deposito realizado");
+        getOrigen().getPropietario().calcularPuntos();
+        return true;
     }
 
     @Override

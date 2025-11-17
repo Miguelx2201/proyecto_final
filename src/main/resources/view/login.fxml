@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="301.0" prefWidth="213.0" spacing="15.0" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="330.0" prefWidth="340.0" spacing="15.0" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
        <Label text="Iniciar Sesión" />
        <TextField fx:id="txtCedula" promptText="Cédula" />

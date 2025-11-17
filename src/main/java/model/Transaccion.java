@@ -60,7 +60,7 @@ public abstract class Transaccion implements Puntuable{
         this.origen = origen;
     }
 
-    public abstract void ejecutar();
+    public abstract boolean ejecutar();
 
     public abstract void revertir();
     public double calcularComision(){

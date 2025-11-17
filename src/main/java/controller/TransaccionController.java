@@ -52,31 +52,56 @@ public class TransaccionController {
     public void depositar() {
         try {
             double monto = Double.parseDouble(txtMonto.getText());
-            monedero.depositar(monto);
-            monedero.registrarTransaccion(new Deposito(monto, this.monedero));
-            actualizarLista();
-            lblError.setText("");
+
+            // Crear la transacción
+            Deposito deposito = new Deposito(monto, monedero);
+
+            // Ejecutar la transacción usando su propio método ejecutar()
+            boolean exito = deposito.ejecutar();
+
+            if (exito) {
+                // Registrar la transacción en el monedero
+                //monedero.registrarTransaccion(deposito);
+
+                actualizarLista();
+                lblError.setText("");
+            } else {
+                lblError.setText("No se pudo realizar el depósito.");
+            }
+
         } catch (NumberFormatException e) {
             lblError.setText("Monto inválido.");
         }
     }
 
+
     @FXML
     public void retirar() {
         try {
             double monto = Double.parseDouble(txtMonto.getText());
-            if (monedero.getSaldo() >= monto) {
-                monedero.retirar(monto);
-                monedero.registrarTransaccion(new Retiro(monto, this.monedero));
+
+            // Crear la transacción
+            Retiro retiro = new Retiro(monto, monedero);
+
+            // Ejecutar la transacción (usa la lógica interna de Retiro)
+            boolean exito = retiro.ejecutar();
+
+            if (exito) {
+                // Registrar en el historial del monedero
+                //monedero.registrarTransaccion(retiro);
+
                 actualizarLista();
                 lblError.setText("");
             } else {
+                // Si ejecutar() falló
                 lblError.setText("Saldo insuficiente.");
             }
+
         } catch (NumberFormatException e) {
             lblError.setText("Monto inválido.");
         }
     }
+
 
     private void actualizarLista() {
         listaTransacciones.setItems(FXCollections.observableArrayList(
@@ -145,21 +170,20 @@ public class TransaccionController {
                 return;
             }
 
-            // Validar saldo
-            if (monedero.getSaldo() < monto) {
+            // Crear la transacción
+            Transferencia trans = new Transferencia(monto, monedero, destino);
+
+            // Ejecutar la transacción usando su propia lógica
+            boolean exito = trans.ejecutar();
+
+            if (!exito) { // si ejecutar() falló, por ejemplo por falta de saldo
                 lblError.setText("Saldo insuficiente.");
                 return;
             }
 
-            // Realizar transferencia
-            monedero.retirar(monto);   // resta al origen
-            destino.depositar(monto);  // suma al destino
-
             // Registrar transacción en ambos monederos
-            Transferencia trans = new Transferencia(monto, monedero, destino);
-
-            monedero.registrarTransaccion(trans);  // en origen
-            destino.registrarTransaccion(trans);   // en destino
+            //monedero.registrarTransaccion(trans);  // origen
+            //destino.registrarTransaccion(trans);   // destino
 
             actualizarLista();
             lblError.setText("Transferencia realizada.");
@@ -168,6 +192,7 @@ public class TransaccionController {
             lblError.setText("Monto inválido.");
         }
     }
+
 
     @FXML
     public void toggleProgramada() {

@@ -22,7 +22,7 @@ public class Transferencia extends Transaccion{
     }
 
     @Override
-    public void ejecutar() {
+    public boolean ejecutar() {
         double total=calcularComision()+getMonto();
             if (getOrigen().getSaldo() >=total) {
                 getOrigen().retirar(getMonto());
@@ -30,8 +30,11 @@ public class Transferencia extends Transaccion{
                 destino.registrarTransaccion(this);
                 getOrigen().registrarTransaccion(this);
                 System.out.println("Transferencia de $" + getMonto());
+                getOrigen().getPropietario().calcularPuntos();
+                return true;
             } else {
                 System.out.println("Saldo insuficiente para realizar la transferencia.");
+                return false;
             }
 
     }

@@ -177,30 +177,35 @@ public class Cliente implements Puntuable,Notificable {
         // preestablecido, el cual podemos cambiar si asi lo deseamos.
     }
 
-    public void canjearBeneficio(Beneficio beneficio, Monedero monedero){
+    public boolean canjearBeneficio(Beneficio beneficio){
         if (puntosTotales >= beneficio.getPuntosNecesarios()) {
             puntosTotales -= beneficio.getPuntosNecesarios();
             switch (beneficio) {
                 case DESCUENTO:
                     this.descuentoTransferencia = true;
                     System.out.println("Has canjeado un 10% de descuento en comisiones por transferencias.");
-                    break;
+                    return true;
+
 
                 case RETIROSGRATIS:
                     this.retirosGratis = true;
                     this.fechaFinRetirosGratis = LocalDate.now().plusMonths(1);
                     System.out.println("Tienes un mes sin cargos por retiros.");
-                    break;
+                    return true;
+
 
                 case BONOSALDO:
-                    monedero.depositar(50000);
+                    listaMonederos.getFirst().depositar(50000);
                     System.out.println("Se acreditó un bono de 50000 a tu monedero.");
-                    break;
+                    return true;
+
             }
             actualizarRango();
         } else {
             System.out.println("No tienes suficientes puntos para este beneficio.");
+            return false;
         }
 
+        return false;
     }
 }

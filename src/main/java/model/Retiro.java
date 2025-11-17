@@ -13,15 +13,19 @@ public class Retiro extends Transaccion {
     }
 
     @Override
-    public void ejecutar() {
+    public boolean ejecutar() {
         double total=calcularComision()+getMonto();
         if(getOrigen().getSaldo()>=total){
             getOrigen().retirar(total);
             getOrigen().registrarTransaccion(this);
             System.out.println("Retiro de $" + total);
+            getOrigen().getPropietario().calcularPuntos();
+            return true;
         }else{
             System.out.println("Saldo insuficiente");
+            return false;
         }
+
 
     }
 

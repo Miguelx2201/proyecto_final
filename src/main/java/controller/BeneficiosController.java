@@ -6,14 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Beneficio;
 import model.Cliente;
+import model.Monedero;
 
 import java.io.IOException;
 
 public class BeneficiosController {
 
     @FXML private Label lblPuntos, lblRango, lblMensaje;
-    @FXML private TextField txtCanje;
+    @FXML private ComboBox<Beneficio> comboBeneficio;
 
     private Cliente cliente;
 
@@ -21,6 +23,7 @@ public class BeneficiosController {
     public void initialize() {
         cliente = AppState.getInstance().getClienteActual();
         actualizarLabels();
+        comboBeneficio.getItems().setAll(Beneficio.values());
     }
 
     private void actualizarLabels() {
@@ -30,19 +33,27 @@ public class BeneficiosController {
 
     @FXML
     public void canjear() {
-        try {
-            int monto = Integer.parseInt(txtCanje.getText());
-            if(cliente.getPuntosTotales() >= monto) {
-                cliente.setPuntosTotales(cliente.getPuntosTotales() - monto);
-                lblMensaje.setText("Canje realizado exitosamente!");
-                actualizarLabels();
-            } else {
-                lblMensaje.setText("No tienes suficientes puntos.");
-            }
-        } catch (NumberFormatException e) {
-            lblMensaje.setText("Monto inválido.");
+
+        // Obtener beneficio seleccionado del ComboBox
+        Beneficio beneficio = comboBeneficio.getValue();
+
+        if (beneficio == null) {
+            lblMensaje.setText("Debe seleccionar un beneficio.");
+            return;
+        }
+
+        // Intentar canjear usando el método del cliente
+        boolean exito = cliente.canjearBeneficio(beneficio);
+
+        if (exito) {
+            lblMensaje.setText("¡Canje realizado exitosamente!");
+            actualizarLabels();   // Actualizas puntos, etc.
+        } else {
+            lblMensaje.setText("No tienes suficientes puntos para este beneficio.");
         }
     }
+
+
 
     @FXML
     public void volver() throws IOException {
