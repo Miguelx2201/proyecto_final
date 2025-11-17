@@ -12,17 +12,26 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public class TransaccionController {
 
-    @FXML private TextField txtMonto, txtCodigo;
-    @FXML private ListView<String> listaTransacciones;
-    @FXML private Label lblError;
-    @FXML private CheckBox checkProgramada;
-    @FXML private DatePicker dateProgramada;
-    @FXML private ComboBox<String> comboFrecuencia;
-    @FXML private HBox panelProgramada;
+    @FXML
+    private TextField txtMonto, txtCodigo;
+    @FXML
+    private ListView<String> listaTransacciones;
+    @FXML
+    private Label lblError;
+    @FXML
+    private CheckBox checkProgramada;
+    @FXML
+    private DatePicker dateProgramada;
+    @FXML
+    private ComboBox<String> comboTransaccion;
+    @FXML private ComboBox<FrecuenciaTransaccionProg> comboFrecuencia;
+    @FXML
+    private VBox panelProgramada;
 
     private Cliente cliente;
     private Monedero monedero;
@@ -30,12 +39,13 @@ public class TransaccionController {
     @FXML
     public void initialize() {
         cliente = AppState.getInstance().getClienteActual();
-        if(cliente.getListaMonederos().isEmpty()) {
+        if (cliente.getListaMonederos().isEmpty()) {
             cliente.getListaMonederos().add(new Monedero(cliente, 0, "M001", null));
         }
         monedero = cliente.getListaMonederos().get(0);
         actualizarLista();
-        comboFrecuencia.getItems().setAll(Arrays.toString(FrecuenciaTransaccionProg.values()));
+        comboFrecuencia.getItems().setAll(FrecuenciaTransaccionProg.values());
+        comboTransaccion.getItems().setAll("Deposito", "Retiro", "Transferencia");
     }
 
     @FXML
@@ -43,7 +53,7 @@ public class TransaccionController {
         try {
             double monto = Double.parseDouble(txtMonto.getText());
             monedero.depositar(monto);
-            monedero.registrarTransaccion(new Deposito(monto,this.monedero ));
+            monedero.registrarTransaccion(new Deposito(monto, this.monedero));
             actualizarLista();
             lblError.setText("");
         } catch (NumberFormatException e) {
@@ -55,7 +65,7 @@ public class TransaccionController {
     public void retirar() {
         try {
             double monto = Double.parseDouble(txtMonto.getText());
-            if(monedero.getSaldo() >= monto) {
+            if (monedero.getSaldo() >= monto) {
                 monedero.retirar(monto);
                 monedero.registrarTransaccion(new Retiro(monto, this.monedero));
                 actualizarLista();
@@ -99,6 +109,7 @@ public class TransaccionController {
         Stage stage = (Stage) listaTransacciones.getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"))));
     }
+
     @FXML
     public void transferir() {
         try {
@@ -157,11 +168,107 @@ public class TransaccionController {
             lblError.setText("Monto inválido.");
         }
     }
+
     @FXML
     public void toggleProgramada() {
         boolean activa = checkProgramada.isSelected();
         panelProgramada.setVisible(activa);
         panelProgramada.setManaged(activa);
+    }
+    @FXML
+    public void programar() {
+
+        if (!checkProgramada.isSelected()) {
+            lblError.setText("Debe marcar la opción de transacción programada.");
+            return;
+        }
+
+        String montoStr = txtMonto.getText();
+        LocalDate fecha = dateProgramada.getValue();
+        FrecuenciaTransaccionProg frecuencia = (comboFrecuencia.getValue());
+        String tipoStr = comboTransaccion.getValue();
+        // -> en TU caso este ComboBox debería contener: "Depósito", "Retiro", "Transferencia"
+
+        // Validaciones
+        if (montoStr.isEmpty() || tipoStr == null || fecha == null || frecuencia == null) {
+            lblError.setText("Debe completar todos los campos de la transacción programada.");
+            return;
+        }
+
+        double monto;
+        try {
+            monto = Double.parseDouble(montoStr);
+        } catch (NumberFormatException e) {
+            lblError.setText("El monto debe ser un número válido.");
+            return;
+        }
+
+        if (monto <= 0) {
+            lblError.setText("El monto debe ser mayor a 0.");
+            return;
+        }
+
+        Cliente clienteActual = AppState.getInstance().getClienteActual();
+        Monedero origen = this.monedero;
+        Monedero destino = null;
+
+    /* ---------------------------
+       CONTRUIMOS LA TRANSACCIÓN
+       --------------------------- */
+
+        Transaccion transaccion = null;
+
+        switch (tipoStr) {
+
+            case "Depósito":
+                transaccion = new Deposito(monto, origen);
+                break;
+
+            case "Retiro":
+                transaccion = new Retiro(monto, origen);
+                break;
+
+            case "Transferencia":
+                String codigoDestino = txtCodigo.getText();
+
+                if (codigoDestino.isEmpty()) {
+                    lblError.setText("Debe ingresar el código de monedero destino.");
+                    return;
+                }
+
+                destino = clienteActual.getListaMonederos().stream()
+                        .filter(m -> m.getCodigo().equalsIgnoreCase(codigoDestino))
+                        .findFirst()
+                        .orElse(null);
+
+                if (destino == null) {
+                    lblError.setText("No existe un monedero destino con ese código.");
+                    return;
+                }
+
+                if (destino == origen) {
+                    lblError.setText("No puede transferirse a sí mismo.");
+                    return;
+                }
+
+                transaccion = new Transferencia(monto, origen, destino);
+                break;
+
+            default:
+                lblError.setText("Tipo de transacción inválido.");
+                return;
+        }
+
+    /* ---------------------------
+       CREAMOS LA TRANSACCIÓN PROGRAMADA
+       --------------------------- */
+
+        TransaccionProgramada programada =
+                new TransaccionProgramada(transaccion, fecha, frecuencia);
+
+        AppState.getInstance().getTransaccionesProgramadas().add(programada);
+
+        lblError.setText("Transacción programada correctamente.");
     }
 
 }
