@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class RegistroController {
 
-    @FXML private TextField txtNombre, txtCedula, txtDireccion, txtCorreo, txtEdad;
+    @FXML private TextField txtNombre, txtCedula, txtDireccion, txtCorreo, txtEdad, txtContraseña;
     @FXML private Label lblError;
 
     @FXML
@@ -23,8 +23,9 @@ public class RegistroController {
             String direccion = txtDireccion.getText();
             String correo = txtCorreo.getText();
             int edad = Integer.parseInt(txtEdad.getText());
+            String contraseña  = txtContraseña.getText();
 
-            Cliente cliente = new Cliente(nombre, cedula, direccion, correo, edad);
+            Cliente cliente = new Cliente(nombre, cedula, direccion, correo, edad, contraseña);
             AppState.getInstance().agregarCliente(cliente);
             AppState.getInstance().setClienteActual(cliente);
 

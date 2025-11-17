@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="185.0" prefWidth="151.0" spacing="10" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MonederoController">
+<VBox alignment="CENTER" prefHeight="312.0" prefWidth="301.0" spacing="10" stylesheets="@app.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MonederoController">
    <children>
+      <Label layoutX="123.0" layoutY="171.0" text="Monederos" />
+      <TableView fx:id="tablaMonederos" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="columnaCodigo" prefWidth="119.0" text="Codigo" />
+          <TableColumn fx:id="columnaSaldo" prefWidth="134.0" text="Saldo" />
+        </columns>
+      </TableView>
        <Label fx:id="lblSaldo" />
-       <Button onAction="#depositar" text="Depositar" />
-       <Button onAction="#retirar" text="Retirar" />
-       <Button onAction="#volver" text="Volver" />
+       <Button onAction="#goAñadirMonedero" text="Añadir monedero" />
+      <Button layoutX="108.0" layoutY="260.0" onAction="#volver" text="Volver" />
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>

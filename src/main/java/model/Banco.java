@@ -176,5 +176,11 @@ public class Banco {
         }
     }
 
+    public boolean verificarCliente(String cedula, String contraseña) {
+        Cliente cliente = buscarCliente(cedula);
+        if(cliente == null) return false;
+        return cliente.getContraseña().equals(contraseña);
+    }
+
 
 }

@@ -11,6 +11,7 @@
        <TextField fx:id="txtCedula" promptText="Cédula" />
        <PasswordField fx:id="txtPassword" promptText="Contraseña" />
        <Button onAction="#handleLogin" text="Ingresar" />
+      <Label layoutX="76.0" layoutY="23.0" text="Aun no tienes una cuenta?" />
        <Button onAction="#goToRegistro" text="Registrarse" />
        <Label fx:id="lblError" style="-fx-text-fill:red;" />
    </children>

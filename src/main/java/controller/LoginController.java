@@ -22,17 +22,30 @@ public class LoginController {
     @FXML
     public void handleLogin() throws IOException {
         String cedula = txtCedula.getText();
+        String password = txtPassword.getText();
+
         Cliente cliente = AppState.getInstance().buscarCliente(cedula);
 
-        if(cliente != null) {
-            AppState.getInstance().setClienteActual(cliente);
-            // Abrir dashboard
-            Stage stage = (Stage) txtCedula.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"))));
-        } else {
+        if (cliente == null) {
             lblError.setText("Cédula no encontrada.");
+            return;
         }
+
+        // Aquí llamas a tu método para validar la contraseña
+        boolean passwordCorrecta = AppState.getInstance().validarPassword(cliente, password);
+
+        if (!passwordCorrecta) {
+            lblError.setText("Contraseña incorrecta.");
+            return;
+        }
+
+        // Si pasa ambas validaciones, iniciar sesión
+        AppState.getInstance().setClienteActual(cliente);
+
+        Stage stage = (Stage) txtCedula.getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"))));
     }
+
 
     @FXML
     public void goToRegistro() throws IOException {

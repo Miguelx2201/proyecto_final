@@ -62,4 +62,8 @@ public class AppState {
     public List<TransaccionProgramada> getTransaccionesProgramadas() {
         return transaccionesProgramadas;
     }
+
+    public boolean validarPassword(Cliente cliente, String contraseña) {
+        return cliente.getContraseña().equals(contraseña);
+    }
 }
