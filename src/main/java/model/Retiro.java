@@ -18,7 +18,7 @@ public class Retiro extends Transaccion {
         if(getOrigen().getSaldo()>=total){
             getOrigen().retirar(total);
             getOrigen().registrarTransaccion(this);
-            System.out.println("Retiro de $" + total);
+            System.out.println("Retiro de $" + getMonto());
         }else{
             System.out.println("Saldo insuficiente");
         }

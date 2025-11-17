@@ -63,7 +63,7 @@ public class Banco {
         this.listaTransaccionesProgramadas = listaTransaccionesProgramadas;
     }
 
-    public boolean registarCliente(Cliente cliente) {
+    public boolean registrarCliente(Cliente cliente) {
         boolean existe = listaClientes.stream().anyMatch(c -> c.getCedula().equals(cliente.getCedula()));
         if (existe) return false;
         return listaClientes.add(cliente);
@@ -98,7 +98,6 @@ public class Banco {
         return listaMonederos.add(monedero);
     }
 
-    // BUSCAR MONEDERO
     public Monedero buscarMonedero(String codigo) {
         return listaMonederos
                 .stream()
