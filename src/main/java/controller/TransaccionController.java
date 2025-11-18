@@ -62,7 +62,7 @@ public class TransaccionController {
             if (exito) {
                 // Registrar la transacción en el monedero
                 //monedero.registrarTransaccion(deposito);
-                deposito.getOrigen().getPropietario().enviarNotificacion("Nuevo deposito de :"+deposito.getMonto() );
+                deposito.getOrigen().getPropietario().enviarNotificacion("Hola "+deposito.getOrigen().getPropietario().getNombre()+"\nSe realizo un nuevo deposito de :"+deposito.getMonto() );
                 actualizarLista();
                 lblError.setText("");
             } else {
@@ -89,7 +89,7 @@ public class TransaccionController {
             if (exito) {
                 // Registrar en el historial del monedero
                 //monedero.registrarTransaccion(retiro);
-                retiro.getOrigen().getPropietario().enviarNotificacion("Nuevo retiro de :"+retiro.getMonto() );
+                retiro.getOrigen().getPropietario().enviarNotificacion("Hola "+retiro.getOrigen().getPropietario().getNombre()+"\nSe realizo un nuevo retiro de :"+retiro.getMonto() );
                 actualizarLista();
                 lblError.setText("");
             } else {
@@ -180,7 +180,7 @@ public class TransaccionController {
                 lblError.setText("Saldo insuficiente.");
                 return;
             }
-            trans.getOrigen().getPropietario().enviarNotificacion("Nuevo tranferencia de :"+trans.getMonto() );
+            trans.getOrigen().getPropietario().enviarNotificacion("Hola "+trans.getOrigen().getPropietario().getNombre()+"\nSe realizo una nueva tranferencia de :"+trans.getMonto() );
             // Registrar transacción en ambos monederos
             //monedero.registrarTransaccion(trans);  // origen
             //destino.registrarTransaccion(trans);   // destino
