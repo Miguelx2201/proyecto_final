@@ -6,12 +6,12 @@ public class ClienteTest {
 
     @Test
     void testCrearClienteDatosInvalidos() {
-        assertThrows(IllegalArgumentException.class, () -> new Cliente("", "123", "cll 13-34", "juana@gmail.com", 20));
+        assertThrows(IllegalArgumentException.class, () -> new Cliente("", "123", "cll 13-34", "juana@gmail.com", 20,"3214"));
     }
 
     @Test
     void testCalcularPuntosTotal() {
-        Cliente c = new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20);
+        Cliente c = new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20,"3214");
         Monedero m = new Monedero(c, 0, "M1", TipoMonedero.AHORROS);
         c.getListaMonederos().add(m);
         m.depositar(200000);

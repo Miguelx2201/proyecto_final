@@ -10,7 +10,7 @@ public class BancoTest {
     @BeforeEach
     public void iniciarBanco(){
         banco=new Banco("Bancolombia", "12453");
-        c=new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20);
+        c=new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20,"3214");
     }
 
     @Test

@@ -12,8 +12,8 @@ public class TransferenciaTest {
     Monedero destino=null;
     @BeforeEach
     public void iniciarClienteYMonedero(){
-        c=new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20);
-        Cliente n=new Cliente("esteban","12217","cll 54-12","est@gmail.com",34);
+        c=new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20,"3214");
+        Cliente n=new Cliente("esteban","12217","cll 54-12","est@gmail.com",34,"0127");
         origen = new Monedero(c, 300000, "1832", TipoMonedero.AHORROS);
         destino = new Monedero(n, 100000, "1832", TipoMonedero.AHORROS);
     }

@@ -16,9 +16,9 @@ public class Cliente implements Puntuable,Notificable {
     private boolean descuentoTransferencia;
     private boolean retirosGratis;
     private LocalDate fechaFinRetirosGratis;
-    private String contraseña;
+    private String contrasena;
 
-    public Cliente(String nombre, String cedula, String direccion, String correo,int edad, String contraseña) {
+    public Cliente(String nombre, String cedula, String direccion, String correo,int edad, String contrasena) {
         if(nombre.isBlank()||cedula.isBlank()||direccion.isBlank()||correo.isBlank()) {
             throw  new IllegalArgumentException("Llene los datos correctamente");
         }
@@ -33,15 +33,15 @@ public class Cliente implements Puntuable,Notificable {
         this.listaMonederos = new ArrayList<>();
         this.puntosTotales = calcularPuntos();
         this.rango=RangoCliente.BRONCE;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
     }
 
     public String getContraseña() {
-        return contraseña;
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public RangoCliente getRango() {

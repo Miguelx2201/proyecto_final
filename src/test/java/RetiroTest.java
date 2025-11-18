@@ -11,7 +11,7 @@ public class RetiroTest {
     Monedero m=null;
     @BeforeEach
     public void iniciarClienteYMonedero(){
-        c=new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20);
+        c=new Cliente("Ana", "14928233", "cll 2-23", "anis@gmail.con", 20,"3214");
         m = new Monedero(c, 200000, "1832", TipoMonedero.AHORROS);
     }
 
