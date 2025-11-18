@@ -42,4 +42,9 @@ public class DashboardController {
         Stage stage = (Stage) lblBienvenida.getScene().getWindow();
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/login.fxml"))));
     }
+    @FXML
+    public void goReporte() throws IOException {
+        Stage stage = (Stage) lblBienvenida.getScene().getWindow();
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/reporte.fxml"))));
+    }
 }

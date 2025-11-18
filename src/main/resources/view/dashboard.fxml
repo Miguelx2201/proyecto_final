@@ -12,6 +12,7 @@
        <Button onAction="#goMonederos" text="Mis Monederos" />
        <Button onAction="#goTransacciones" text="Transacciones" />
        <Button onAction="#goBeneficios" text="Beneficios y Puntos" />
+      <Button layoutX="101.0" layoutY="249.0" onAction="#goReporte" text="Reporte de gastos" />
        <Button onAction="#logout" text="Cerrar Sesión" />
    </children>
 </VBox>
