@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class Gmail {
 
-    public static void enviarGmail(String mensaje) {
+    public static void enviarGmail(String mensaje, String correo2) {
 
         // Datos de tu cuenta Gmail
         final String correo = "juanm.gutierrezv@uqvirtual.edu.co";
@@ -40,7 +40,7 @@ public class Gmail {
             message.setFrom(new InternetAddress(correo));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("miguel1091885531@gmail.com") // Aqui es donde cambiariamos el correo por
+                    InternetAddress.parse(correo2) // Aqui es donde cambiariamos el correo por
                     // el correo del destinatario, si quisieramos mayor profesionalismo el metodo recibiria como
                     // parametro un correo, el del cliente, al cual enviariamos el correo asi que en este sitio es
                     // donde pondriamos el correo que recibimos como parametro

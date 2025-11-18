@@ -172,7 +172,7 @@ public class Cliente implements Puntuable,Notificable {
     public void enviarNotificacion(String mensaje) {
         System.out.println("🔔 Notificación para " + nombre + ": " + mensaje);
         //Whatsapp.enviarWhatsapp(mensaje); //Puesto en comentarios para no gastar los mensajes de twilio
-        Gmail.enviarGmail(mensaje); // Este metodo deberia recibir como argumento tambien el correo del cliente y a
+        Gmail.enviarGmail(mensaje, this.correo); // Este metodo deberia recibir como argumento tambien el correo del cliente y a
         // ese mismo correo enviar el gmail, sin embargo para mayor simplicidad dejamos un correo propio ya
         // preestablecido, el cual podemos cambiar si asi lo deseamos.
     }
